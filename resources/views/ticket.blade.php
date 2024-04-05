@@ -107,7 +107,11 @@
                             <p>Aucun ticket enrégistré</p>
                         @endforelse
                       </tbody>
+                      
                     </table>
+                    <div class="d-flex justify-content-center">
+                    {!! $tickets->links() !!}
+                    </div>
                   </div>
                 </div>
               </div>
