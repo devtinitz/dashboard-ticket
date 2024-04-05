@@ -40,12 +40,18 @@
                 <i class="ti-settings text-primary"></i>
                 Settings
               </a> -->
-              <a class="dropdown-item" href="{{ route('logout') }}"
+              <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+              <i class='mdi mdi-logout'></i><span>Déconnexion</span>
+              </a>
+
+              <!-- <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();" ><i class='bx bx-log-out-circle'></i><span>Logout</span></a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
+                                                     document.getElementById('logout-form').submit();" ><i class='bx bx-log-out-circle'></i><span>Logout</span></a> -->
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                  @csrf
+                  <button type="submit">Déconnexion</button>
+               </form>
+
             </div>
           </li>
           <li class="nav-item nav-settings d-none d-lg-flex">
@@ -105,7 +111,7 @@
               </ul>
             </div>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
               <i class="mdi mdi-newspaper"></i>
               <span class="menu-title">Liste Evènement</span>
@@ -116,7 +122,7 @@
                 <li class="nav-item"><a class="nav-link" href="#">Mes évènement</a></li>
               </ul>
             </div>
-          </li>
+          </li> -->
          
          
           <!-- <li class="nav-item">

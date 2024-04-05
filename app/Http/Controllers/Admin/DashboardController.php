@@ -22,11 +22,11 @@ class DashboardController extends Controller
 
         $event = Auth::user();
         //  dd($event);
-         $data['ticket'] = $event->tickets->groupBy('name')->count();
+         $data['ticket'] = $event->tickets->groupBy('placing')->count();
          // Compter le nombre de tickets par 'placing' pour l'événement connecté
         $data['ticketCounts'] = Ticket::where('event_id', $event->id) 
-             ->groupBy('name')//name = placing
-             ->select('name', DB::raw('COUNT(*) as total'))
+             ->groupBy('placing')//name = placing
+             ->select('placing', DB::raw('COUNT(*) as total'))
              ->get();
         // Définir une liste de couleurs
     $colors = ['bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-dark'];

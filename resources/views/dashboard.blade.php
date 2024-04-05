@@ -8,7 +8,7 @@
         <div class="col-md-12 grid-margin">
           <div class="row">
             <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-              <h3 class="font-weight-bold"> Welcome !!!</h3>
+              <h3 class="font-weight-bold"> Bienvenu !!!</h3>
               <!-- <h6 class="font-weight-normal mb-0">All systems are running smoothly! You have <span class="text-primary">3 unread alerts!</span></h6> -->
             </div>
             <!-- <div class="col-12 col-xl-4">
@@ -30,34 +30,34 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6 grid-margin stretch-card">
+        <!-- <div class="col-md-6 grid-margin stretch-card">
           <div class="card tale-bg">
             <div class="card-people mt-auto">
               <img src="{{asset('style/images/dashboard/people.svg')}}" alt="people">
               <div class="weather-info">
                 <div class="d-flex">
-                  <!-- <div>
+                   <div>
                     <h2 class="mb-0 font-weight-normal"><i class="icon-sun mr-2"></i>31<sup>C</sup></h2>
                   </div> -->
                   <!-- <div class="ml-2">
                     <h4 class="location font-weight-normal">Bangalore</h4>
                     <h6 class="font-weight-normal">India</h6>
-                  </div> -->
+                  </div> 
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-md-6 grid-margin transparent">
+        </div> -->
+        <div class="col-md-12 grid-margin transparent">
         <div class="row">
           @forelse ( $ticketCounts as $ticketCount )
           
-            <div class="col-md-6 mb-4 stretch-card transparent">
+            <div class="col-md-4 mb-4 stretch-card transparent">
               <div class="card card-tale {{ $ticketCount->color }}">
               <div class="card-body">
-                  <p class="mb-4">{{ $ticketCount->name }}</p>
+                  <p class="mb-4">{{ Strtoupper($ticketCount->placing) }}</p>
                   <p class="fs-30 mb-2">{{ $ticketCount->total }}</p>
-                  <p><a href="{{route('ticket')}}">voir plus</a></p>
+                  <p ><a href="{{route('ticket')}}" style="color: white; height:20px">voir plus</a></p>
                 </div>
               </div>
             </div>
@@ -117,46 +117,46 @@
                         </div>
                       <div class="col-md-12 col-xl-9">
                         <div class="row">
-                          <div class="col-md-6 border-right">
+                          <div class="col-md-12 border-right">
                             <div class="table-responsive mb-3 mb-md-0 mt-3">
                               <table class="table table-borderless report-table">
                               @forelse ($ticketCounts as $ticketCount)
-<tr>
-    <td class="text-muted">{{ $ticketCount->name }}</td>
-    <td class="w-100 px-0">
-        <div class="progress progress-md mx-4">
-            @php
-            // Calculer la largeur de la barre de progression en pourcentage
-            $totalTickets = $ticket; // le nombre total de tickets, s'il est disponible
-            $progressPercentage = ($ticketCount->total / $totalTickets) * 100;
-            // Déterminer la classe de couleur en fonction de la valeur
-            $colorClass = $progressPercentage > 75 ? 'bg-success' : ($progressPercentage > 50 ? 'bg-info' : ($progressPercentage > 25 ? 'bg-warning' : 'bg-danger'));
-            @endphp
-            <div class="progress-bar {{ $colorClass }}" role="progressbar" style="width: {{ $progressPercentage }}%" aria-valuenow="{{ $progressPercentage }}" aria-valuemin="0" aria-valuemax="100"></div>
-            <!-- <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $progressPercentage }}%" aria-valuenow="{{ $progressPercentage }}" aria-valuemin="0" aria-valuemax="100"></div> -->
-        </div>
-    </td>
-    <td><h5 class="font-weight-bold mb-0">{{ $ticketCount->total }}</h5></td>
-</tr>
-@empty
-<tr>
-    <td class="text-muted">00</td>
-    <td class="w-100 px-0">
-        <div class="progress progress-md mx-4">
-            <div class="progress-bar bg-primary" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-    </td>
-    <td><h5 class="font-weight-bold mb-0">Ticket scanné</h5></td>
-</tr>
-@endforelse
+                                  <tr>
+                                      <td class="text-muted">{{ Strtoupper($ticketCount->placing) }}</td>
+                                      <td class="w-100 px-0">
+                                          <div class="progress progress-md mx-4">
+                                              @php
+                                              // Calculer la largeur de la barre de progression en pourcentage
+                                              $totalTickets = $ticket; // le nombre total de tickets, s'il est disponible
+                                              $progressPercentage = ($ticketCount->total / $totalTickets) * 100;
+                                              // Déterminer la classe de couleur en fonction de la valeur
+                                              $colorClass = $progressPercentage > 75 ? 'bg-success' : ($progressPercentage > 50 ? 'bg-info' : ($progressPercentage > 25 ? 'bg-warning' : 'bg-danger'));
+                                              @endphp
+                                              <div class="progress-bar {{ $colorClass }}" role="progressbar" style="width: {{ $progressPercentage }}%" aria-valuenow="{{ $progressPercentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                              <!-- <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $progressPercentage }}%" aria-valuenow="{{ $progressPercentage }}" aria-valuemin="0" aria-valuemax="100"></div> -->
+                                          </div>
+                                      </td>
+                                      <td><h5 class="font-weight-bold mb-0">{{ $ticketCount->total }}</h5></td>
+                                  </tr>
+                                  @empty
+                                  <tr>
+                                      <td class="text-muted">00</td>
+                                      <td class="w-100 px-0">
+                                          <div class="progress progress-md mx-4">
+                                              <div class="progress-bar bg-primary" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                          </div>
+                                      </td>
+                                      <td><h5 class="font-weight-bold mb-0">Ticket scanné</h5></td>
+                                  </tr>
+                                  @endforelse
 
                               </table>
                             </div>
                           </div>
-                          <div class="col-md-6 mt-3">
+                          <!-- <div class="col-md-6 mt-3">
                             <canvas id="north-america-chart"></canvas>
                             <div id="north-america-legend"></div>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
                     </div>

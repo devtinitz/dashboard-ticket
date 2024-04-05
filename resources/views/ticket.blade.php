@@ -32,9 +32,14 @@
         </div>
     </div>
 </form>
-
+         <!-- Bouton pour exporter vers Excel -->
+         <div>
+          <a href="{{ route('export_excel') }}" class="btn btn-success">Exporter vers Excel</a>
+         <!-- Bouton pour exporter vers PDF -->
+          <a href="{{ route('export_pdf') }}" class="btn btn-primary">Exporter vers PDF</a>
+          </div>
         <div class="content-wrapper">
-            
+           
           <div class="row">
             
             
@@ -50,19 +55,25 @@
                       <thead>
                         <tr>
                           <th>
-                            {{$nom}}
+                           Nom
                           </th>
                           <th>
-                          {{$email}}
+                         Email
                           </th>
                           <th>
-                          {{$contact}}
+                          Contact
                           </th>
                           <th>
-                          {{$placing}}
+                          Placing
                           </th>
                           <th>
-                          {{$code}}
+                          Place
+                          </th>
+                          <th>
+                          Code
+                          </th>
+                          <th>
+                          Date de scanne
                           </th>
                         </tr>
                       </thead>
@@ -77,13 +88,19 @@
                             {{$data->email}}
                           </td>
                           <td>
-                            <p>0141731900</p>
+                            <p>{{$data->contact}}</p>
                           </td>
                           <td>
-                            $ 77.99
+                          {{Strtoupper($data->placing)}}
+                          </td>
+                          <td>
+                          {{$data->place}}
                           </td>
                           <td>
                             {{$data->code}}
+                          </td>
+                          <td>
+                          {{$data->date_scanne}}
                           </td>
                         </tr>
                         @empty

@@ -23,7 +23,7 @@ class TicketController extends Controller
 
             //dd($request);
             // Afficher les données reçues dans la console
-            Log::info('Données reçues : ' . json_encode($request->all()));
+            // Log::info('Données reçues : ' . json_encode($request->all()));
 
             // Valider les données reçues
             $request->validate([
@@ -143,7 +143,7 @@ class TicketController extends Controller
     {
         try {
 
-            Log::info('Données reçues : ' . json_encode($request->all()));
+            // Log::info('Données reçues : ' . json_encode($request->all()));
             //code...
             $input = $request->all();
             $validator = Validator::make($input, [

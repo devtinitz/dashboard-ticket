@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
 use App\Models\Event;
 use App\Models\Ticket;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use App\Exports\TicketExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ListTicketController extends Controller
 {
@@ -39,25 +41,39 @@ class ListTicketController extends Controller
         $ticketsQuery = $event->tickets(); // Commencez par récupérer une instance de la relation de ticket pour l'événement actuel
 
         //filtres de recherche si des paramètres de recherche sont présents dans la requête
-        if ($request->filled('name')) {
-            $ticketsQuery->where('name', 'like', '%' . $request->input('name') . '%');
+        if ($request->filled('placing')) {
+            $ticketsQuery->where('placing', 'like', '%' . $request->input('placing') . '%');
         }
 
         if ($request->filled('email')) {
             $ticketsQuery->where('email', 'like', '%' . $request->input('email') . '%');
         }
-
-        
-
         // Exécutez la requête pour récupérer les tickets
         $tickets = $ticketsQuery->get();
 
         // Retournez les données à la vue
         return view('ticket',$data, [
             'tickets' => $tickets,
-            'name' => $request->input('name', ''), // Utilisez les valeurs de recherche fournies ou une chaîne vide
-            'email' => $request->input('email', ''), // Utilisez les valeurs de recherche fournies ou une chaîne vide
-            // Ajoutez plus de données selon vos besoins...
+            'name' => $request->input('placing', ''), //
+            'email' => $request->input('email', ''), // 
+            //
         ]);
+    }
+
+    public function exportToExcel()
+    {
+        $event = Auth::user();
+        $tickets = $event->tickets;
+    
+        return Excel::download(new TicketExport($tickets), 'tickets.xlsx');
+    }
+    
+        public function exportToPDF()
+    {
+        $event = Auth::user();
+        $tickets = $event->tickets;
+
+        $pdf = PDF::loadView('pdf', compact('tickets'));
+        return $pdf->download('tickets.pdf');
     }
 }

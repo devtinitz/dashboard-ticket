@@ -19,18 +19,20 @@ use App\Http\Controllers\Auth\LoginController;
 */
 
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-Route::get('/', [LoginController::class, 'showLoginForm']);
+Route::get('/', function () {
+    return redirect('login');
+});
+Route::get('/login', [LoginController::class, 'showLoginForm']);
 
 Route::get('/ticket', [ListTicketController::class, "index"])->middleware('auth')->name("ticket");
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
+Route::get('/export-to-excel', [ListTicketController::class, 'exportToExcel'])->middleware('auth')->name('export_excel');
+Route::get('/export-to-pdf', [ListTicketController::class, 'exportToPDF'])->middleware('auth')->name('export_pdf');
 
 
-Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
+Route::post('/custom-login-url', [LoginController::class, 'authenticate'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-// Route::get('/create', [LoginController::class, 'showLoginForm']);
+
 
 
 

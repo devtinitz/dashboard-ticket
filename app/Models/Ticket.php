@@ -15,12 +15,12 @@ class Ticket extends Model
         'email',
         'event_id',
         'code',
-        // 'placing',
-        // 'contact',
-        // 'place',
-        // 'sexe',
-        // 'date_scanne',
-        // 'status',
+        'placing',
+        'contact',
+        'place',
+        'sexe',
+        'date_scanne',
+        'status',
 
     ];
 

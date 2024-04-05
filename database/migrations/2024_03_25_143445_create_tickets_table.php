@@ -18,12 +18,13 @@ class CreateTicketsTable extends Migration
             $table->string('code')->unique();
             $table->string('name');
             $table->string('email')->nullable();
-            // $table->string('placing')->nullable();
-            // $table->string('contact')->nullable();
-            // $table->string('place')->nullable();
+            $table->string('placing')->nullable();
+            $table->string('place')->nullable();
+            $table->dateTime('date_scanne')->nullable();
+            $table->string('contact')->nullable();
 
-            // $table->string('sexe')->nullable();
-            // $table->string('status')->nullable();
+            $table->string('sexe')->nullable();
+            $table->string('status')->nullable();
             
             $table->unsignedBigInteger('event_id')->nullable();
             $table->timestamps();

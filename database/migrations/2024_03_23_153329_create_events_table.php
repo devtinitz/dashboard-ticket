@@ -19,6 +19,12 @@ class CreateEventsTable extends Migration
             $table->string('email');
             $table->string('code');
             $table->string('password');
+            $table->text('description')->nullable();
+            $table->string('status');
+            $table->string('created_by')->nullable();
+            $table->text('image')->nullable();
+            $table->dateTime('date_debut')->nullable();
+            $table->dateTime('date_fin')->nullable();
             $table->timestamps();
         });
     }

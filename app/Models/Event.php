@@ -20,13 +20,13 @@ class Event extends Model implements AuthenticatableContract
         'name',
         'email',
         'code',
-        // 'description',
+        'description',
         'password',
-        // 'status',
-        // 'created_by',
-        // 'image',
-        // 'date_debut',
-        // 'date_fin',
+        'status',
+        'created_by',
+        'image',
+        'date_debut',
+        'date_fin',
     ];
     protected $username = 'code';
     
