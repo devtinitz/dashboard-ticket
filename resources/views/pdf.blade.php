@@ -42,7 +42,7 @@
                 <td>{{ $ticket->name }}</td>
                 <td>{{ $ticket->email }}</td>
                 <td>{{ $ticket->contact }}</td>
-                <td>{{ $ticket->placing }}</td>
+                <td>{{ Strtoupper($ticket->placing) }}</td>
                 <td>{{ $ticket->place }}</td>
                 <td>{{ $ticket->code }}</td>
                 <td>{{ $ticket->date_scanne }}</td>

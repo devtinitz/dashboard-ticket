@@ -69,7 +69,7 @@ class TicketController extends Controller
 
             // mettre à jour un événement
             $event->update($request->only([
-                'code',
+                // 'code',
                 'name',
                 'email',
                 'placing',

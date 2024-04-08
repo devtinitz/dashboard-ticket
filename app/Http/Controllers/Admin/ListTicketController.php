@@ -49,7 +49,7 @@ class ListTicketController extends Controller
             $ticketsQuery->where('email', 'like', '%' . $request->input('email') . '%');
         }
         // Exécutez la requête pour récupérer les tickets
-        $tickets = $ticketsQuery->paginate(3);
+        $tickets = $ticketsQuery->paginate(50);
 
         // Retournez les données à la vue
         return view('ticket',$data, [

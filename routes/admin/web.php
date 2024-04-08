@@ -28,18 +28,6 @@ Route::middleware(['auth','admin',])->group(function(){
    
     Route::get('/admin/dashboard',[DashboardController::class, 'index'])->name('admin.dashboard');
 
-    // Route::resource('admin/newsletters',NewsletterController::class)->only([
-    //     'index', 'destroy'
-    // ]);
-    // Route::resource('admin/deviss',DevisController::class)->only([
-    //     'index', 'show','destroy'
-    // ]);
-
-    // Route::resource('admin/contacts',ContactController::class)->only([
-    //     'index', 'show','destroy'
-    // ]);
-
-    // Route::resource('admin/produits',ProduitController::class);
 
     });
 

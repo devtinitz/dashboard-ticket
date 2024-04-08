@@ -34,17 +34,7 @@
           <div class="card tale-bg">
             <div class="card-people mt-auto">
               <img src="{{asset('style/images/dashboard/people.svg')}}" alt="people">
-              <div class="weather-info">
-                <div class="d-flex">
-                   <div>
-                    <h2 class="mb-0 font-weight-normal"><i class="icon-sun mr-2"></i>31<sup>C</sup></h2>
-                  </div> -->
-                  <!-- <div class="ml-2">
-                    <h4 class="location font-weight-normal">Bangalore</h4>
-                    <h6 class="font-weight-normal">India</h6>
-                  </div> 
-                </div>
-              </div>
+              <canvas id="ticketChart" width="auto" height="auto"></canvas>
             </div>
           </div>
         </div> -->
@@ -117,7 +107,7 @@
                         </div>
                       <div class="col-md-12 col-xl-9">
                         <div class="row">
-                          <div class="col-md-12 border-right">
+                          <div class="col-md-6 border-right">
                             <div class="table-responsive mb-3 mb-md-0 mt-3">
                               <table class="table table-borderless report-table">
                               @forelse ($ticketCounts as $ticketCount)
@@ -127,7 +117,7 @@
                                           <div class="progress progress-md mx-4">
                                               @php
                                               // Calculer la largeur de la barre de progression en pourcentage
-                                              $totalTickets = $ticket; // le nombre total de tickets, s'il est disponible
+                                              $totalTickets = $ticket; // le nombre total de tickets.
                                               $progressPercentage = ($ticketCount->total / $totalTickets) * 100;
                                               // Déterminer la classe de couleur en fonction de la valeur
                                               $colorClass = $progressPercentage > 75 ? 'bg-success' : ($progressPercentage > 50 ? 'bg-info' : ($progressPercentage > 25 ? 'bg-warning' : 'bg-danger'));
@@ -153,10 +143,11 @@
                               </table>
                             </div>
                           </div>
-                          <!-- <div class="col-md-6 mt-3">
-                            <canvas id="north-america-chart"></canvas>
-                            <div id="north-america-legend"></div>
-                          </div> -->
+                          <div class="col-md-6 mt-3">
+                          <canvas id="ticketChart" width="400" height="400"></canvas>
+                            <!-- <div id="north-america-legend"></div> -->
+                          </div>
+                          
                         </div>
                       </div>
                     </div>
@@ -260,6 +251,35 @@
       
       
     </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+     var colors = ['rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)', 'rgba(255, 206, 86, 0.5)', 'rgba(75, 192, 192, 0.5)', 'rgba(153, 102, 255, 0.5)', 'rgba(255, 159, 64, 0.5)'];
+     // Récupérer le contexte du canvas
+    var ctx = document.getElementById('ticketChart').getContext('2d');
+
+  // Créer le graphique
+    var ticketChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: @json($labels),
+        datasets: [{
+            label: 'Nombre de Tickets par Catégorie',
+            data: @json($totals),
+            backgroundColor: colors,
+            borderColor: colors.map(color => color.replace('0.5', '1')), // Assurez-vous que la bordure est plus foncée
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+   
+</script>
     <!-- content-wrapper ends -->
     <!-- partial:partials/_footer.html -->
    @include('admin.layout.footer') 

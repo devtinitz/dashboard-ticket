@@ -5,7 +5,8 @@
      <div class="main-panel">
         
      <div class="card-body">
-     <h4 class="card-title">Filtre</h4>
+    
+     <h4 class="card-title"><i class="mdi mdi-filter-outline "></i>Filtre</h4>
 
      </div>
      <form method="GET" action="{{ route('ticket') }}" class="mb-3">
