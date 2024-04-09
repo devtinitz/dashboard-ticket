@@ -24,7 +24,7 @@ class CreateTicketsTable extends Migration
             $table->string('contact')->nullable();
 
             $table->string('sexe')->nullable();
-            $table->string('status')->nullable();
+            $table->unsignedBigInteger('status')->default(0);
             
             $table->unsignedBigInteger('event_id')->nullable();
             $table->timestamps();

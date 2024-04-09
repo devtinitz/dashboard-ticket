@@ -40,7 +40,37 @@
         </div> -->
         <div class="col-md-12 grid-margin transparent">
         <div class="row">
-          @forelse ( $ticketCounts as $ticketCount )
+        <div class="col-md-4 mb-4 stretch-card transparent">
+              <div class="card card-dark-blue">
+              <div class="card-body">
+                  
+                  <p class="fs-30 mb-2"><i class="mdi mdi-ticket">{{$ticket}}</i></p>
+                  <p class="mb-4">Total tickets</p>
+                </div> 
+              </div>
+        </div>
+        <div class="col-md-4 mb-4 stretch-card transparent">
+              <div class="card card-light-blue">
+              <div class="card-body">
+                  
+                  <p class="fs-30 mb-2"><i class="mdi mdi-ticket">{{$ticketCountStatus}}</i></p>
+                  <p class="mb-4">Total tickets scannés</p>
+                </div>
+              </div>
+        </div>
+        <div class="col-md-4 mb-4 stretch-card transparent">
+              <div class="card card-light-danger">
+              <div class="card-body">
+                  
+                  <p class="fs-30 mb-2"><i class="mdi mdi-ticket">{{$ticketCountStatusI}}</i></p>
+                  <p class="mb-4">Total tickets non scannés</p>
+                </div>
+              </div>
+        </div>
+        </div>
+        <div class="row">
+        
+          @foreach ( $ticketCounts as $ticketCount )
           
             <div class="col-md-4 mb-4 stretch-card transparent">
               <div class="card card-tale {{ $ticketCount->color }}">
@@ -52,17 +82,8 @@
               </div>
             </div>
             
-          @empty
-          <div class="col-md-6 mb-4 stretch-card transparent">
-              <div class="card card-tale">
-              <div class="card-body">
-                  <p class="mb-4">aucun ticket </p>
-                  <p class="fs-30 mb-2">00</p>
-                  <p><a href="{{route('ticket')}}">voir plus</a></p>
-                </div>
-              </div>
-            </div>
-          @endforelse 
+            
+          @endforeach 
             
           </div>
           <!-- <div class="row">
@@ -100,7 +121,7 @@
                       <div class="col-md-12 col-xl-3 d-flex flex-column justify-content-start">
                         <div class="ml-xl-4 mt-3">
                         <p class="card-title">Detail Evènement</p>
-                          <h1 class="text-primary">{{$ticket}}</h1>
+                          <h1 class="text-primary">{{$ticketCountStatus}}</h1>
                           <h3 class="font-weight-500 mb-xl-4 text-primary">Tickets Scannés</h3>
                           <!-- <p class="mb-2 mb-xl-0">The total number of sessions within the date range. It is the period time a user is actively engaged with your website, page or app, etc</p> -->
                         </div>  

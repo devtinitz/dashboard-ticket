@@ -14,7 +14,7 @@ class Event extends Model implements AuthenticatableContract
 
     use HasFactory;
 
-    // protected $table ='evenements';
+    protected $table ='evenements';
 
     protected $fillable = [
         'name',
@@ -28,8 +28,7 @@ class Event extends Model implements AuthenticatableContract
         'date_debut',
         'date_fin',
     ];
-    protected $username = 'code';
-    
+
     //Cette fonction permet de gererer le coupon par defaut
     public function __construct(array $attributes = [])
     {

@@ -20,8 +20,8 @@
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                <label for="email">Email :</label>
-                <input type="text" name="email" id="email" class="form-control" value="" placeholder="Email">
+                <label for="email">Place :</label>
+                <input type="text" name="place" id="place" class="form-control" value="" placeholder="place">
             </div>
         </div>
         <!-- Ajoutez plus de champs de recherche selon vos besoins -->
@@ -76,6 +76,9 @@
                           <th>
                           Date de scanne
                           </th>
+                          <th>
+                          Status
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
@@ -102,6 +105,13 @@
                           </td>
                           <td>
                           {{$data->date_scanne}}
+                          </td>
+                          <td>
+                            @if($data->status == 1)
+                            <span class="badge badge-success">Scanné</span>
+                            @else
+                            <span class="badge badge-danger">Non Scanné</span>
+                            @endif
                           </td>
                         </tr>
                         @empty

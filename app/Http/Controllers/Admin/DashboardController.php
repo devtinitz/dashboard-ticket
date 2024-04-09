@@ -47,18 +47,25 @@ class DashboardController extends Controller
 
     public function index()
 {
-    $data['libelleEvent'] = "Nombre d'évènements";
-    $data['libelleTicket'] = "Nombre de Tickets";
-    $data['vip'] = "Nombre de Tickets VIP";
-    $data['vvip'] = "Nombre de Tickets VVIP";
-    $data['public'] = "Nombre de Tickets PUBLIC";
-
+    
     $event = Auth::user();
-    $data['ticket'] = $event->tickets->groupBy('placing')->count();
+      // Compter le nombre de tickets avec un statut égal à 1 pour cet événement
+    $data['ticketCountStatus'] = Ticket::where('event_id', $event->id)
+    ->where('status', 1)
+    ->count();
+
+     // Compter le nombre de tickets avec un statut égal à 0 pour cet événement
+     $data['ticketCountStatusI'] = Ticket::where('event_id', $event->id)
+     ->where('status', 0)
+     ->count();
+
+    //compter le nombre de ticket total
+    $data['ticket'] = $event->tickets->count();
     // Compter le nombre de tickets par 'placing' pour l'événement connecté
     $data['ticketCounts'] = Ticket::where('event_id', $event->id)
                             ->groupBy('placing')
                             ->select('placing', DB::raw('COUNT(*) as total'))
+                            ->where('status', 1)
                             ->get();
 
     // Préparer les données pour les graphiques

@@ -23,21 +23,21 @@ class TicketController extends Controller
 
             //dd($request);
             // Afficher les données reçues dans la console
-            // Log::info('Données reçues : ' . json_encode($request->all()));
+            Log::info('Données reçues : ' . json_encode($request->all()));
 
             // Valider les données reçues
             $request->validate([
-                'code' => 'required',
-                'tickets' => 'required|array',
-                'tickets.*.code' => 'required',
-                'tickets.*.name' => 'required',
-                'tickets.*.email'=>'nullable',
-                'tickets.*.placing',
-                'tickets.*.contact'=>'nullable',
-                'tickets.*.place',
-                'tickets.*.sexe' => 'required',
-                'tickets.*.status',
-                'tickets.*.date_scanne'=> 'required',
+//                'code' => 'required',
+//                'tickets' => 'required|array',
+//                'tickets.*.code' => 'required',
+//                'tickets.*.name' => 'required',
+//                'tickets.*.email' => 'nullable',
+//                'tickets.*.placing',
+//                'tickets.*.contact' => 'nullable',
+//                'tickets.*.place',
+//                'tickets.*.sexe' => 'required',
+//                'tickets.*.status' => 'nullable',
+//                'tickets.*.date_scanne' => 'required',
             ]);
 
 //            if ($request->fails()) {
@@ -58,18 +58,17 @@ class TicketController extends Controller
             }
 
             // Vérifier si le code du ticket existe déjà
-            foreach ($request->tickets as $ticketData) {
-                $existingTicket = Ticket::where('code', $ticketData['code'])->first();
-                if ($existingTicket) {
-                    return response()->json([
-                        'status' => false,
-                        'message' => 'Le ticket avec le code ' . $ticketData['code'] . ' a été déjà scanné'], 401);
-                }
-            }
+//            foreach ($request->tickets as $ticketData) {
+//                $existingTicket = Ticket::where('code', $ticketData['code'])->first();
+//                if ($existingTicket) {
+//                    return response()->json([
+//                        'status' => false,
+//                        'message' => 'Le ticket avec le code ' . $ticketData['code'] . ' a été déjà scanné'], 401);
+//                }
+//            }
 
             // mettre à jour un événement
             $event->update($request->only([
-                // 'code',
                 'name',
                 'email',
                 'placing',
@@ -81,7 +80,7 @@ class TicketController extends Controller
 
             // Enregistrer les tickets associés
             foreach ($request->tickets as $ticketData) {
-                $ticket = new Ticket([
+                $ticket = [
                     'name' => $ticketData['name'],
                     'email' => $ticketData['email'],
                     'code' => $ticketData['code'],
@@ -91,8 +90,14 @@ class TicketController extends Controller
                     'sexe' => $ticketData['sexe'],
                     'status' => $ticketData['status'],
                     'date_scanne' => $ticketData['date_scanne'],
-                ]);
-                $event->tickets()->save($ticket);
+                    'ticketing_id' => $event->id
+                ];
+                Ticket::updateOrCreate(
+                    [
+                        'code' => $ticketData['code'],
+                    ],
+                    $ticket
+                );
             }
             return response()->json([
                 'status' => true,
@@ -110,40 +115,13 @@ class TicketController extends Controller
 
 
     // creer un nuvelle event
-   /* public function storeEvent(Request $request)
-    {
-
-        try {
-            DB::transaction(function () use ($request) {
-                // Créer un nouvel événement
-                Ticketing::create([
-                    'email' => $request->email,
-                    'nom' => $request->nom,
-                    'logo' => empty($request->logo)? '' :storeFile($request->logo),
-                    'background' => empty($request->background)? '' :storeFile($request->background),
-                    'status' => 0,
-                ]);
-
-                if ($request->email) {
-                    @Mail::send('emails.ticket', [], function ($message) use ($request) {
-                        $message->from('ne-pas-repondre@tdisplay.com', 'Tinitz Display')->to($request->email)->subject('Code de votre ticket');
-                    });
-                }
-                return response()->json(['message' => 'Ticket ajouté avec succès'], 201);
-            });
-        } catch (\Exception $e) {
-            return response()->json(['message' => "Une erreur s'est produite ====>" . $e->getMessage()], 500);
-        }
-
-
-    }
-    */
+    
 
     public function createEvent(Request $request)
     {
         try {
 
-            // Log::info('Données reçues : ' . json_encode($request->all()));
+            Log::info('Données reçues : ' . json_encode($request->all()));
             //code...
             $input = $request->all();
             $validator = Validator::make($input, [
@@ -163,7 +141,7 @@ class TicketController extends Controller
                 ], 400);
             }
             // Vérifier si le code de l'événement existe
-            $event = Ticket::where('code', $request->code)->first();
+            $event = Event::where('code', $request->code)->first();
 
             if (!$event) {
                 return response()->json([
@@ -174,10 +152,10 @@ class TicketController extends Controller
 
             $event->update([
                 "code" => $request->code,
-                'name'=> $request->name,
-                'email'=> $request->email,
-                'password'=> Hash::make($request->password),
-                'status'=> 1,
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'status' => 1,
 
             ]);
 
@@ -192,5 +170,52 @@ class TicketController extends Controller
                 'message' => $th->getMessage()
             ], 500);
         }
+    }
+
+    public function verification(Request $request)
+    {
+
+//        Log::info('Données reçues : ' . json_encode($request->all()));
+
+        $request->validate([
+            'code' => 'required',
+            'ticket' => 'required',
+        ]);
+
+        $ticket = Ticket::whereHas('ticketing', function ($query) use ($request) {
+            $query->where('code', $request->code);
+        })->where('code', $request->ticket)->first();
+        if (!$ticket) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Le code ticket est introuvable'], 404);
+        }
+        if ($ticket && $ticket->status == 0) {
+            $ticket->status = 1;
+            $ticket->save();
+            return response()->json([
+                'status' => true,
+                'message' => 'Ticket ' . $request->ticket . ' scanné avec succès',
+                'data'=>[
+                    "donneeEvent"=>$ticket->ticketing,
+                    "donneeTicket" =>$ticket
+                ]
+            ], 200);
+        }
+
+        return response()->json([
+            'status' => false,
+            'message' => 'Le ticket avec le code ' . $request->ticket . ' est a été déjà scanné',
+            'data'=>[
+                "donneeTicket" =>$ticket->ticketing,
+                "donneeTicket" =>$ticket
+            ]
+        ], 409);
+
+        // Vérifier si le code de existe
+//
+//
+
+
     }
 }

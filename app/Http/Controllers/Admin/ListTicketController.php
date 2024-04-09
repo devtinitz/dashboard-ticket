@@ -45,17 +45,17 @@ class ListTicketController extends Controller
             $ticketsQuery->where('placing', 'like', '%' . $request->input('placing') . '%');
         }
 
-        if ($request->filled('email')) {
-            $ticketsQuery->where('email', 'like', '%' . $request->input('email') . '%');
+        if ($request->filled('place')) {
+            $ticketsQuery->where('place', 'like', '%' . $request->input('place') . '%');
         }
         // Exécutez la requête pour récupérer les tickets
-        $tickets = $ticketsQuery->paginate(50);
+        $tickets = $ticketsQuery->paginate(10);
 
         // Retournez les données à la vue
         return view('ticket',$data, [
             'tickets' => $tickets,
             'name' => $request->input('placing', ''), //
-            'email' => $request->input('email', ''), // 
+            'place' => $request->input('place', ''), // 
             //
         ]);
     }
