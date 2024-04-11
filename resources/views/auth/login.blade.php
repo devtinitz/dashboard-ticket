@@ -29,8 +29,8 @@
               <div class="brand-logo">
                 <img src="{{asset('style/images/tinitz.png')}}" alt="logo">
               </div>
-              <h4>Hello! let's get started</h4>
-              <h6 class="font-weight-light">Sign in to continue.</h6>
+              <!-- <h4>Hello! let's get started</h4> -->
+              <h6 class="font-weight-light">Connectez-vous pour continuer.</h6>
               <form class="pt-3" action="{{route('login')}}" method="POST">
                 @csrf
                 <div class="form-group">

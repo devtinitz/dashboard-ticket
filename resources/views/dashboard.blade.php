@@ -165,7 +165,7 @@
                             </div>
                           </div>
                           <div class="col-md-6 mt-3">
-                          <canvas id="ticketChart" width="400" height="400"></canvas>
+                          <canvas id="ticketChart" width="600" height="600"></canvas>
                             <!-- <div id="north-america-legend"></div> -->
                           </div>
                           
@@ -280,7 +280,7 @@
 
   // Créer le graphique
     var ticketChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'bar', //pie, line
     data: {
         labels: @json($labels),
         datasets: [{

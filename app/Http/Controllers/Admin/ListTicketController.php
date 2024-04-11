@@ -74,6 +74,6 @@ class ListTicketController extends Controller
         $tickets = $event->tickets;
 
         $pdf = PDF::loadView('pdf', compact('tickets'));
-        return $pdf->download('tickets.pdf');
+        return $pdf->download($event->name.'.pdf');
     }
 }

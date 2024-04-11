@@ -14,7 +14,7 @@ class Event extends Model implements AuthenticatableContract
 
     use HasFactory;
 
-    protected $table ='evenements';
+    // protected $table ='evenements';
 
     protected $fillable = [
         'name',
@@ -40,6 +40,7 @@ class Event extends Model implements AuthenticatableContract
             $this->attributes['code'] = $this->genereCode();
         }
     }
+
 
     public function tickets()
     {

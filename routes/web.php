@@ -30,7 +30,7 @@ Route::get('/export-to-excel', [ListTicketController::class, 'exportToExcel'])->
 Route::get('/export-to-pdf', [ListTicketController::class, 'exportToPDF'])->middleware('auth')->name('export_pdf');
 
 
-Route::post('/custom-login-url', [LoginController::class, 'authenticate'])->name('login');
+Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 

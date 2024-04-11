@@ -14,13 +14,13 @@
       
         <div class="col-md-4">
             <div class="form-group">
-                <label for="nom">Placing :</label>
-                <input type="text" name="name" id="nom" class="form-control" value="" placeholder="Placing">
+                <label for="placing">Placing :</label>
+                <input type="text" name="placing" id="nom" class="form-control" value="" placeholder="Placing">
             </div>
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                <label for="email">Place :</label>
+                <label for="place">Place :</label>
                 <input type="text" name="place" id="place" class="form-control" value="" placeholder="place">
             </div>
         </div>
@@ -92,7 +92,7 @@
                             {{$data->email}}
                           </td>
                           <td>
-                            <p>{{$data->contact}}</p>
+                            <p>{{$data->contact??"----------------"}}</p>
                           </td>
                           <td>
                           {{Strtoupper($data->placing)}}
@@ -104,7 +104,7 @@
                             {{$data->code}}
                           </td>
                           <td>
-                          {{$data->date_scanne}}
+                          {{$data->date_scanne??"----------------"}}
                           </td>
                           <td>
                             @if($data->status == 1)
@@ -115,7 +115,7 @@
                           </td>
                         </tr>
                         @empty
-                            <p>Aucun ticket enrégistré</p>
+                            <p>Aucun ticket scannée</p>
                         @endforelse
                       </tbody>
                       

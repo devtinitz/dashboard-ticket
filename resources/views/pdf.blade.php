@@ -3,7 +3,7 @@
 <head>
     <title>Tickets</title>
     <style>
-        /* Ajoutez votre CSS personnalisé pour la mise en forme du PDF ici */
+        
         body {
             font-family: Arial, sans-serif;
         }
@@ -33,23 +33,35 @@
                 <th>Place</th>
                 <th>Code</th>
                 <th>Date de scanne</th>
-                <!-- Ajoutez d'autres colonnes si nécessaire -->
+                <th>Status</th>
+               
             </tr>
         </thead>
         <tbody>
             @foreach ($tickets as $ticket)
             <tr>
-                <td>{{ $ticket->name }}</td>
-                <td>{{ $ticket->email }}</td>
-                <td>{{ $ticket->contact }}</td>
-                <td>{{ Strtoupper($ticket->placing) }}</td>
-                <td>{{ $ticket->place }}</td>
-                <td>{{ $ticket->code }}</td>
-                <td>{{ $ticket->date_scanne }}</td>
-                <!-- Ajoutez d'autres colonnes si nécessaire -->
+                <td>{{ $ticket->name??"---------------" }}</td>
+                <td>{{ $ticket->email??"---------------" }}</td>
+                <td>{{ $ticket->contact??"---------------" }}</td>
+                <td>{{ Strtoupper($ticket->placing??"---------------") }}</td>
+                <td>{{ $ticket->place??"---------------" }}</td>
+                <td>{{ $ticket->code??"---------------" }}</td>
+                <td>{{ $ticket->date_scanne??"---------------"}}</td>
+                <td>
+                            @if($ticket->status == 1)
+                            <span class="badge badge-success">Scanné</span>
+                            @else
+                            <span class="badge badge-danger">Non Scanné</span>
+                            @endif
+                          </td>
+                        </tr>
+              
             </tr>
             @endforeach
         </tbody>
     </table>
+    <footer>
+        <p>pied de page</p>
+    </footer>
 </body>
 </html>
